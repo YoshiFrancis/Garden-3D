@@ -12,9 +12,15 @@ find_package(OpenGL REQUIRED)
 
 add_executable(base_glfw
     src/main.cpp
+    src/test_main.cpp
     src/lsystem.cpp
     src/util.cpp
     src/gl_core_3_3.c
+    src/camera.cpp
+    src/draw.cpp
+    src/flower.cpp
+    src/garden.cpp
+    src/garden_utils.cpp
 )
 
 target_include_directories(base_glfw PRIVATE

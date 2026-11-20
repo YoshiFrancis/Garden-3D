@@ -16,6 +16,8 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
+#include "test_main.hpp"
+
 #ifdef _WIN32
 // Use a small native popup-menu adapter on Windows only;
 // the window, OpenGL context and normal event handling still belong to GLFW.
@@ -321,34 +323,35 @@ void cleanup() {
 }
 
 int main(int argc, char** argv) {
-    try {
-        // Resolve a command-line relative path before locating the asset folder.
-        std::string configFile;
-        if (argc > 1) configFile = fs::absolute(fs::path(argv[1])).string();
-        locateResources(argc > 0 ? argv[0] : nullptr);
-        if (configFile.empty()) configFile = "models/tree1.txt";
-        findModelFiles();
-        initGLFW();
-        lsystem = std::make_unique<LSystem>();
-        printHelp();
-        try {
-            loadModel(configFile);
-        } catch (const std::exception& e) {
-            std::cerr << "Parse error: " << e.what() << std::endl;
-        }
-        updateTitle();
-        // A4 is not animated. Render the initial frame, then wait for input.
-        while (!glfwWindowShouldClose(window)) {
-            if (popupRequested) { popupRequested = false; showContextMenu(); }
-            if (glfwWindowShouldClose(window)) break;
-            if (redrawRequested) { redrawRequested = false; display(); }
-            glfwWaitEvents();
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Fatal error: " << e.what() << std::endl;
-        cleanup();
-        return 1;
-    }
-    cleanup();
-    return 0;
+    return garden_3d::test_main();
+    // try {
+    //     // Resolve a command-line relative path before locating the asset folder.
+    //     std::string configFile;
+    //     if (argc > 1) configFile = fs::absolute(fs::path(argv[1])).string();
+    //     locateResources(argc > 0 ? argv[0] : nullptr);
+    //     if (configFile.empty()) configFile = "models/tree1.txt";
+    //     findModelFiles();
+    //     initGLFW();
+    //     lsystem = std::make_unique<LSystem>();
+    //     printHelp();
+    //     try {
+    //         loadModel(configFile);
+    //     } catch (const std::exception& e) {
+    //         std::cerr << "Parse error: " << e.what() << std::endl;
+    //     }
+    //     updateTitle();
+    //     // A4 is not animated. Render the initial frame, then wait for input.
+    //     while (!glfwWindowShouldClose(window)) {
+    //         if (popupRequested) { popupRequested = false; showContextMenu(); }
+    //         if (glfwWindowShouldClose(window)) break;
+    //         if (redrawRequested) { redrawRequested = false; display(); }
+    //         glfwWaitEvents();
+    //     }
+    // } catch (const std::exception& e) {
+    //     std::cerr << "Fatal error: " << e.what() << std::endl;
+    //     cleanup();
+    //     return 1;
+    // }
+    // cleanup();
+    // return 0;
 }
