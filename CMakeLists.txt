@@ -21,6 +21,10 @@ add_executable(base_glfw
     src/flower.cpp
     src/garden.cpp
     src/garden_utils.cpp
+    src/camera_hw1.cpp
+    src/glstate.cpp
+    src/scene.cpp
+    src/mesh.cpp
 )
 
 target_include_directories(base_glfw PRIVATE
